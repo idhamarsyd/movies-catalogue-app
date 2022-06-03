@@ -1,5 +1,4 @@
 import React from "react";
-import Star from "./../assets/star-fill.svg";
 
 const Rating = ({ label }) => {
   return (

@@ -1,66 +1,36 @@
 import RatingChip from "./../components/ratingChip";
 
 const MovieList = ({ data }) => {
-  return (
-    <div className="list-container">
-      <div
-        className="movie-container"
-        style={{
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 48.44%, rgba(0, 0, 0, 0.8) 100%), url(https://m.media-amazon.com/images/M/MV5BNDJiZDliZDAtMjc5Yy00MzVhLThkY2MtNDYwNTQ2ZTM5MDcxXkEyXkFqcGdeQXVyMDA4NzMyOA@@._V1_.jpg)`,
-        }}
-      >
-        <div className="movie-info">
-          <p className="caption-text movie-info-text">2019</p>
-          <RatingChip label="4.5" />
+  const renderMovie = (list) => {
+    const renderResults = [];
+    for (var i = 0; i < list.length; i += 4) {
+      renderResults.push(
+        <div className="list-container">
+          {list.slice(i, i + 4).map((movie) => (
+            <>
+              <div
+                className="movie-container"
+                style={{
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                  backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 48.44%, rgba(0, 0, 0, 0.8) 100%), url(${movie.Poster})`,
+                }}
+              >
+                <div className="movie-info">
+                  <p className="caption-text movie-info-text">{movie.Year}</p>
+                  {/* <RatingChip label="4.5" /> */}
+                </div>
+                <h1 className="headline-text">{movie.Title}</h1>
+              </div>
+            </>
+          ))}
         </div>
-        <h1 className="headline-text">The Old Guard</h1>
-      </div>
-      <div
-        className="movie-container"
-        style={{
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 48.44%, rgba(0, 0, 0, 0.8) 100%), url(https://m.media-amazon.com/images/M/MV5BNDJiZDliZDAtMjc5Yy00MzVhLThkY2MtNDYwNTQ2ZTM5MDcxXkEyXkFqcGdeQXVyMDA4NzMyOA@@._V1_.jpg)`,
-        }}
-      >
-        <div className="movie-info">
-          <p className="caption-text movie-info-text">2019</p>
-          <RatingChip label="4.5" />
-        </div>
-        <h1 className="headline-text">The Old Guard</h1>
-      </div>
-      <div
-        className="movie-container"
-        style={{
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 48.44%, rgba(0, 0, 0, 0.8) 100%), url(https://m.media-amazon.com/images/M/MV5BNDJiZDliZDAtMjc5Yy00MzVhLThkY2MtNDYwNTQ2ZTM5MDcxXkEyXkFqcGdeQXVyMDA4NzMyOA@@._V1_.jpg)`,
-        }}
-      >
-        <div className="movie-info">
-          <p className="caption-text movie-info-text">2019</p>
-          <RatingChip label="4.5" />
-        </div>
-        <h1 className="headline-text">The Old Guard</h1>
-      </div>
-      <div
-        className="movie-container"
-        style={{
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 48.44%, rgba(0, 0, 0, 0.8) 100%), url(https://m.media-amazon.com/images/M/MV5BNDJiZDliZDAtMjc5Yy00MzVhLThkY2MtNDYwNTQ2ZTM5MDcxXkEyXkFqcGdeQXVyMDA4NzMyOA@@._V1_.jpg)`,
-        }}
-      >
-        <div className="movie-info">
-          <p className="caption-text movie-info-text">2019</p>
-          <RatingChip label="4.5" />
-        </div>
-        <h1 className="headline-text">The Old Guard</h1>
-      </div>
-    </div>
-  );
+      );
+    }
+    return renderResults;
+  };
+
+  return renderMovie(data);
 };
 
 export default MovieList;
