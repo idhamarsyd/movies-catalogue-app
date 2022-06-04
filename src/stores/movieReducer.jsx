@@ -7,7 +7,24 @@ export const fetchMovie = createAsyncThunk(
     const res = await axios.get(
       `http://www.omdbapi.com/?s=${keyword}&apikey=32de02a1`
     );
-    const formatRes = await res.data.Search;
+    console.log(res);
+    if (res.data.Response === "True") {
+      const formatRes = await res.data.Search;
+      return formatRes;
+    } else {
+      const formatRes = await res.data.Response;
+      return formatRes;
+    }
+  }
+);
+
+export const fetchMovieDetail = createAsyncThunk(
+  "movie/fetchMovieDetail",
+  async (id) => {
+    const res = await axios.get(
+      `http://www.omdbapi.com/?i=${id}&apikey=32de02a1`
+    );
+    const formatRes = await res.data;
     console.log(formatRes);
     return formatRes;
   }
@@ -17,20 +34,40 @@ export const movieSlice = createSlice({
   name: "movie",
   initialState: {
     data: [],
+    detail: [],
+    queryID: null,
     loadingState: false,
+    errorState: false,
   },
-  reducers: {},
+  reducers: {
+    setQueryID: (state, action) => {
+      state.queryID = action.payload;
+    },
+  },
   extraReducers: {
     [fetchMovie.fulfilled]: (state, action) => {
-      state.data = action.payload;
+      if (action.payload !== "False") {
+        state.data = action.payload;
+        state.errorState = false;
+      } else {
+        state.errorState = true;
+      }
+      // state.data = action.payload;
       state.loadingState = false;
     },
     [fetchMovie.pending]: (state) => {
       state.loadingState = true;
     },
+    [fetchMovieDetail.fulfilled]: (state, action) => {
+      state.detail = action.payload;
+      state.loadingState = false;
+    },
+    [fetchMovieDetail.pending]: (state) => {
+      state.loadingState = true;
+    },
   },
 });
 
-// export const { showLoading } = newsSlice.actions;
+export const { setQueryID } = movieSlice.actions;
 
 export default movieSlice.reducer;
